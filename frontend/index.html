@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback Form</title>
+</head>
+<body>
+
+<h2>Student Feedback</h2>
+
+<input type="text" id="name" placeholder="Name"><br><br>
+<input type="text" id="course" placeholder="Course"><br><br>
+<textarea id="message" placeholder="Feedback"></textarea><br><br>
+
+<button onclick="submitFeedback()">Submit</button>
+
+<script>
+function submitFeedback() {
+    fetch("http://localhost:8080/feedback", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            course: document.getElementById("course").value,
+            message: document.getElementById("message").value
+        })
+    })
+    .then(res => res.json())
+    .then(() => alert("Feedback submitted!"));
+}
+</script>
+
+</body>
+</html>
